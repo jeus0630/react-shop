@@ -3,6 +3,8 @@ import './App.css';
 import data from './data.js';
 import {useState} from "react";
 
+import {Link, Route, Routes, Switch} from "react-router-dom";
+
 function App(){
 
     let [shoes, shoesFunc] = useState(data);
@@ -29,23 +31,38 @@ function App(){
                 </Container>
             </Navbar>
 
+            <Routes>
+                <Route path="/" element={<div>Hello World</div>}>
+
+                </Route>
+                <Route path="/" element={<div>Hello World</div>}>
+
+                </Route>
+            </Routes>
+
             <div className="container">
                 <div className="row">
 
                         {
                             shoes.map((el,idx)=>{
                                 return (
-                                    <div className="col-md-4" key={idx}>
-                                        <img src="https://codingapple1.github.io/shop/shoes{idx}.jpg" width="100%"/>
-                                        <h4>상품명</h4>
-                                        <p>상품정보</p>
-                                    </div>
+                                    <Card el={el} idx={idx}></Card>
                                 )
                             })
                         }
 
                 </div>
             </div>
+        </div>
+    )
+}
+
+function Card(props){
+    return(
+        <div className="col-md-4">
+            <img src={`https://codingapple1.github.io/shop/shoes${props.idx+1}.jpg`} width="100%"/>
+            <h4>{props.el.title}</h4>
+            <p>{props.el.content}</p>
         </div>
     )
 }
