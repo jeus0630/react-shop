@@ -1,10 +1,9 @@
 import { Navbar,Nav,NavDropdown,Container } from 'react-bootstrap';
 import './App.css';
 import data from './data.js';
-import {useState} from "react";
-
+import React, {useState} from "react";
 import {Link, Route, Routes, Switch} from "react-router-dom";
-
+import Detail from "./Detail";
 function App(){
 
     let [shoes, shoesFunc] = useState(data);
@@ -17,8 +16,8 @@ function App(){
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
-                            <Nav.Link href="#home">Home</Nav.Link>
-                            <Nav.Link href="#link">Link</Nav.Link>
+                            <Nav.Link to="/">Home</Nav.Link>
+                            <Nav.Link to="/detail">Detail</Nav.Link>
                             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                                 <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                                 <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
@@ -32,27 +31,22 @@ function App(){
             </Navbar>
 
             <Routes>
-                <Route path="/" element={<div>Hello World</div>}>
-
-                </Route>
-                <Route path="/" element={<div>Hello World</div>}>
-
-                </Route>
-            </Routes>
-
-            <div className="container">
-                <div className="row">
+                <Route path="/" element={<div className="container">
+                    <div className="row">
 
                         {
                             shoes.map((el,idx)=>{
                                 return (
-                                    <Card el={el} idx={idx}></Card>
+                                    <Card el={el} idx={idx} key={idx}></Card>
                                 )
                             })
                         }
 
-                </div>
-            </div>
+                    </div>
+                </div>}></Route>
+                <Route path="/detail/:id" element={<Detail shoes={shoes}></Detail>}></Route>
+            </Routes>
+
         </div>
     )
 }
@@ -66,5 +60,7 @@ function Card(props){
         </div>
     )
 }
+
+
 
 export default App;
